@@ -8,6 +8,18 @@ const postImage = document.getElementById('postImage');
 
 const postsContainer = document.getElementById('postsContainer');
 
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("Usuario está autenticado:", user);
+        // Actualiza el contenedor de bienvenida
+        document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
+        document.getElementById('userAvatar').src = user.photoURL || 'https://via.placeholder.com/40'; // Usa un avatar por defecto si no hay foto
+    } else {
+        console.log("Usuario no está autenticado.");
+        window.location.href = 'index.html'; // Redirige si no hay usuario
+    }
+});
+
 postForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const text = postText.value;
@@ -26,9 +38,9 @@ function displayPosts(posts) {
     postsContainer.innerHTML = ''; // Limpiar el contenedor
     posts.forEach(post => {
         const postElement = document.createElement('div');
-        postElement.classList.add('col-12', 'col-md-4', 'col-lg-3'); // Configuración de columnas responsive
+        postElement.classList.add('col-12'); // Configuración de columnas responsive
         postElement.innerHTML = `
-            <div class="card shadow-sm h-100">
+            <div class="card shadow-sm h-100 mb-3">
                 <div class="card-body">
                     <p class="card-text">${post.text}</p>
                     ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagen de publicación" class="img-fluid rounded">` : ''}

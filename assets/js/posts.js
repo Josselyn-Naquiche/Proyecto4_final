@@ -49,7 +49,7 @@ function displayPosts(posts) {
                         <h6 class="card-subtitle mb-0 ms-2 ">${post.authorName || 'Usuario Desconocido'}</h6>
                     </div>
                     <p class="card-text">${post.text}</p>
-                    ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagen de publicación" class="img-fluid rounded">` : ''}
+                    ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagen de publicación" class="img-fluid rounded" width="300" height="200">` : ''}
                 </div>
                 <div class="card-footer text-muted d-flex justify-content-between align-items-center">
                     <div>
@@ -60,7 +60,7 @@ function displayPosts(posts) {
                             <i class="bi bi-hand-thumbs-down"></i> <span>${post.dislikes ? Object.keys(post.dislikes).length : 0}</span>
                         </button>
                     </div>
-                    <div>
+                    <div class="">
                         <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${post.id}">
                             <i class="bi bi-pencil-square"></i> Editar
                         </button>
@@ -152,6 +152,7 @@ function displayPosts(posts) {
         });
     });
 }
+
 
 // Llamada a la función que escucha las publicaciones en tiempo real
 onGetPosts(displayPosts);

@@ -6,13 +6,18 @@ import { updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/fireba
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCX405bvseZBDXhmbCIBueSrJFd1ildPpk",
-    authDomain: "proyecto4-final.firebaseapp.com",
-    projectId: "proyecto4-final",
-    storageBucket: "proyecto4-final.appspot.com",
-    messagingSenderId: "153455877998",
-    appId: "1:153455877998:web:cbea6718f862488addab7f",
-    measurementId: "G-MS1HM6928D"
+    
+  
+    apiKey: "AIzaSyAK2XwjNw553jLxXtipNNVnI53A64fnDHM",
+    authDomain: "proyecto4-e0675.firebaseapp.com",
+    projectId: "proyecto4-e0675",
+    storageBucket: "proyecto4-e0675.appspot.com",
+    messagingSenderId: "512574537773",
+    appId: "1:512574537773:web:4503d5bb365fc881e6f8a4",
+    measurementId: "G-3EMBHPK9DL"
+  
+
+  
 };
 
 // Initialize Firebase
@@ -170,7 +175,23 @@ export function deletePost(id) {
     return deleteDoc(doc(db, 'posts', id));
 }
 
+// Función para agregar un comentario
+export const addComment = async (postId, text) => {
+    const userId = getCurrentUserId();
+    const commentRef = db.collection('posts').doc(postId).collection('comments').doc();
+    await commentRef.set({
+        text,
+        userId,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+};
 
+// Función para obtener comentarios de un post
+export const getComments = async (postId) => {
+    const commentsSnapshot = await db.collection('posts').doc(postId).collection('comments').orderBy('createdAt').get();
+    const comments = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return comments;
+};
 
 // Exportar autenticación y base de datos
 export { auth};

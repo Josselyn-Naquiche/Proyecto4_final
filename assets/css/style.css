@@ -16,3 +16,14 @@ body {
     background-color:#FFD5E2 ;
     border: none;
 }
+#loginGoogleBtn{
+    background-color: #FF8AA5;
+    color: white;
+}
+.botoni{
+    background-color: #9377E3;
+    border: none;
+}
+#showRegisterForm{
+    color: #F63C65;
+}

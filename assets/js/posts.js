@@ -1,5 +1,7 @@
 import { auth, createPost, onGetPosts, getCurrentUserId, updatePostLikes, fetchPosts} from "./config.js";
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { deletePost, getPost, updatePost } from "./config.js";
+
 
 const btnLogout = document.getElementById('logout');
 const postForm = document.getElementById('postForm');
@@ -13,7 +15,7 @@ onAuthStateChanged(auth, (user) => {
         console.log("Usuario está autenticado:", user);
         // Actualiza el contenedor de bienvenida
         document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
-        document.getElementById('userAvatar').src = user.photoURL || 'https://via.placeholder.com/40'; // Usa un avatar por defecto si no hay foto
+        document.getElementById('userAvatar').src = user.photoURL    || 'https://via.placeholder.com/40'; // Usa un avatar por defecto si no hay foto
     } else {
         console.log("Usuario no está autenticado.");
         window.location.href = 'index.html'; // Redirige si no hay usuario
@@ -42,6 +44,10 @@ function displayPosts(posts) {
         postElement.innerHTML = `
             <div class="card shadow-sm h-100 mb-3">
                 <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="${post.authorPhoto}" alt="Foto de perfil" class="rounded-circle" width="40" height="40">
+                        <h6 class="card-subtitle mb-0 ms-2 text-muted">${post.authorName || 'Usuario Desconocido'}</h6>
+                    </div>
                     <p class="card-text">${post.text}</p>
                     ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagen de publicación" class="img-fluid rounded">` : ''}
                 </div>
@@ -54,11 +60,70 @@ function displayPosts(posts) {
                             👎 <span>${post.dislikes ? Object.keys(post.dislikes).length : 0}</span>
                         </button>
                     </div>
+                    <div>
+                        <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${post.id}">
+                            ✏️ Editar
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${post.id}">
+                            🗑️ Borrar
+                        </button>
+                    </div>
                     <small>${new Date(post.createdAt.seconds * 1000).toLocaleString()}</small>
                 </div>
             </div>
         `;
         postsContainer.appendChild(postElement);
+    });
+
+    // Función para editar publicaciones
+    const editButtons = document.querySelectorAll('.edit-btn');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    // Añadir el evento click para editar
+    editButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const postId = button.getAttribute('data-id');
+            const postDoc = await getPost(postId); // Obtener los datos de la publicación
+            const postData = postDoc.data();
+
+            // Llenar el formulario con los datos de la publicación a editar
+            postText.value = postData.text;
+
+            // Crear un botón para confirmar la edición
+            const editConfirmBtn = document.createElement('button');
+            const ocultarPost = document.getElementById('agregarPost')
+            const ocultarBtn = document.getElementById('agregaBtn')
+            editConfirmBtn.textContent = 'Confirmar Edición';
+            editConfirmBtn.classList.add('btn', 'btn-success', 'mt-2');
+            ocultarPost.classList.add('d-none')
+            ocultarBtn.classList.add('d-none')
+            postForm.appendChild(editConfirmBtn);
+
+            // Listener para confirmar la edición
+            editConfirmBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await updatePost(postId, { text: postText.value });
+                alert('Publicación actualizada con éxito');
+                postForm.reset();
+                editConfirmBtn.remove();
+                ocultarPost.classList.remove('d-none')
+                ocultarBtn.classList.remove('d-none')
+                displayPosts(await fetchPosts()); // Refresca las publicaciones
+            });
+        });
+    });
+
+    // Funcionalidad de borrar
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const postId = button.getAttribute('data-id');
+            const confirmDelete = confirm('¿Estás seguro de que deseas borrar esta publicación?');
+            if (confirmDelete) {
+                await deletePost(postId);
+                alert('Publicación eliminada');
+                displayPosts(await fetchPosts()); // Refresca las publicaciones
+            }
+        });
     });
 
         // Añadir listeners a los botones de like y dislike después de que se hayan añadido las publicaciones

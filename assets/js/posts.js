@@ -42,11 +42,11 @@ function displayPosts(posts) {
         const postElement = document.createElement('div');
         postElement.classList.add('col-12'); // Configuración de columnas responsive
         postElement.innerHTML = `
-            <div class="card shadow-sm h-100 mb-3">
+            <div class="card  h-100 mb-3 ">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2">
                         <img src="${post.authorPhoto}" alt="Foto de perfil" class="rounded-circle" width="40" height="40">
-                        <h6 class="card-subtitle mb-0 ms-2 text-muted">${post.authorName || 'Usuario Desconocido'}</h6>
+                        <h6 class="card-subtitle mb-0 ms-2 ">${post.authorName || 'Usuario Desconocido'}</h6>
                     </div>
                     <p class="card-text">${post.text}</p>
                     ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Imagen de publicación" class="img-fluid rounded">` : ''}
@@ -54,21 +54,21 @@ function displayPosts(posts) {
                 <div class="card-footer text-muted d-flex justify-content-between align-items-center">
                     <div>
                         <button class="btn btn-outline-primary btn-sm like-btn" data-id="${post.id}">
-                            👍 <span>${post.likes ? Object.keys(post.likes).length : 0}</span>
+                            <i class="bi bi-hand-thumbs-up"></i> <span>${post.likes ? Object.keys(post.likes).length : 0}</span>
                         </button>
                         <button class="btn btn-outline-danger btn-sm dislike-btn" data-id="${post.id}">
-                            👎 <span>${post.dislikes ? Object.keys(post.dislikes).length : 0}</span>
+                            <i class="bi bi-hand-thumbs-down"></i> <span>${post.dislikes ? Object.keys(post.dislikes).length : 0}</span>
                         </button>
                     </div>
                     <div>
                         <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${post.id}">
-                            ✏️ Editar
+                            <i class="bi bi-pencil-square"></i> Editar
                         </button>
                         <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${post.id}">
-                            🗑️ Borrar
+                            <i class="bi bi-trash"></i> Borrar
                         </button>
                     </div>
-                    <small>${new Date(post.createdAt.seconds * 1000).toLocaleString()}</small>
+                    <small>${post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleString() : 'Fecha no disponible'}</small>
                 </div>
             </div>
         `;
@@ -178,3 +178,4 @@ btnLogout.addEventListener('click', () => {
             alert("No se pudo cerrar sesión. Intenta de nuevo.");
         });
 });
+

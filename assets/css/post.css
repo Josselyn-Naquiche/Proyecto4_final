@@ -1,19 +1,149 @@
-body {
-    background-color: #343a40; /* Color celeste */
+body{
+    background-color: #FFD5E2;
+}
+#navBar {
+    background-color: #F63C65; /* Color de fondo */
+    
 }
 
+.nav-link {
+    transition: color 0.3s; /* Efecto de transición */
+}
+
+.nav-link:hover {
+    color: #ffc107; /* Color al pasar el mouse */
+}
+
+.btn-outline-danger {
+    color: #fff; /* Color de texto del botón */
+    border-color: #dc3545; /* Color del borde */
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545; /* Color de fondo al pasar el mouse */
+    color: white; /* Color del texto al pasar el mouse */}
+
+#welcomeSection{
+    background-color: #DBC8A7;
+    padding: 10%;
+    border: #413F40 solid 1px;
+    border-radius: 30px;
+}
+
+.publicacion{
+    border-radius:30px;
+    border: #D4C9F4 solid 3px 
+}
+
+/* Título de la tarjeta */
+.card-title {
+    font-weight: bold;
+    font-size: 1.5rem; /* Tamaño de fuente */
+    color: #F63C65; /* Color del título */
+}
+
+/* Estilo del textarea */
+#postText {
+    border: none; /* Borde del textarea */
+    border-radius: 20px; /* Bordes redondeados */
+    transition: border-color 0.3s; /* Transición suave */
+}
+
+/* Cambiar el borde del textarea al enfocar */
+#postText:focus {
+    border-color: #D5006D; /* Color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(213, 0, 109, 0.5); /* Sombra suave al enfocar */
+}
+#postImage{
+    border-radius: 30px;
+    background-color: #DBC8A7;
+    
+}
+#postImage:focus {
+    border-color: #D5006D; /* Color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(213, 0, 109, 0.5); /* Sombra suave al enfocar */
+}
+/* Estilo para el botón de publicar */
+.btn-primary {
+    background-color: #F63C65; /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    border-radius: 30px; /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.btn-primary:hover {
+    background-color: #D5006D; /* Color al pasar el mouse */
+    transform: translateY(-2px); /* Leve elevación al pasar el mouse */
+}
+
+
+/* Estilos para el contenedor de publicaciones */
 .card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #F9F9F9; /* Fondo claro */
+    border: 1px solid #E0E0E0; /* Borde suave */
+    transition: box-shadow 0.3s; /* Transición suave para la sombra */
+    
 }
 
-.card-body p {
-    font-size: 1rem;
-    color: #333;
+/* Sombra al pasar el mouse */
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra más intensa */
 }
 
-.img-fluid {
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 5px;
+/* Estilo para la foto de perfil */
+.card-body img {
+    border: 2px solid #F63C65; /* Borde alrededor de la foto */
+}
+
+/* Título del autor */
+.card-subtitle {
+    font-weight: bold; /* Negrita para el nombre del autor */
+    color: #413F40; /* Color del nombre del autor */
+}
+
+/* Estilo para el texto de la publicación */
+.card-text {
+    font-size: 1rem; /* Tamaño de fuente del texto */
+    margin-top: 10px; /* Margen superior */
+}
+
+/* Estilos para la imagen de la publicación */
+.card-body .img-fluid {
+    margin-top: 10px; /* Margen superior */
+    border-radius: 8px; /* Bordes redondeados */
+    
+}
+
+/* Estilos para el pie de la tarjeta */
+.card-footer {
+    background-color: #F1F1F1; /* Fondo gris claro */
+    border-top: 1px solid #E0E0E0; /* Línea superior */
+}
+
+/* Botones dentro del pie de la tarjeta */
+.btn {
+    border-radius: 5px; /* Bordes redondeados para los botones */
+    margin: 0 5px; /* Margen lateral */
+}
+
+/* Botón de like */
+.like-btn {
+    color: #007bff; /* Color del texto */
+}
+
+/* Botón de dislike */
+.dislike-btn {
+    color: #dc3545; /* Color del texto */
+}
+
+/* Botón de editar */
+.edit-btn {
+    color: #ffc107; /* Color del texto */
+}
+
+/* Botón de borrar */
+.delete-btn {
+    color: #dc3545; /* Color del texto */
 }

@@ -9,40 +9,76 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="mb-2" id="navBar">
+        <nav class="navbar navbar-expand-xl text-white border-bottom border-body " style="background-color: #F63C65">
+            <div class="container ">
+                <!-- Brand -->
+                <img src="https://cdn-icons-png.flaticon.com/512/620/620851.png" style="width: 3.5%; margin: 6px;" alt="">
+                <a class="navbar-brand text-white" href="#">PetSpace</a>
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                    <!-- Nav -->
+        
+                </div>
+            </div>
+        </nav>
+    </div>
     <!-- Formulario de inicio de sesión -->
-    <div id="loginForm" class="container mt-5">
-        <h3>Iniciar sesión</h3>
-        <form id="login" aria-labelledby="loginFormHeading">
-            <div class="mb-3">
-                <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                <input type="email" id="loginEmail" class="form-control" placeholder="Ingresa tu correo" required autocomplete="email">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <div class="">
+                        <img class="img-fluid" src="https://png.pngtree.com/png-clipart/20230406/original/pngtree-puppy-cartoon-dog-cute-png-image_9029383.png" alt="">
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="loginPassword" class="form-label">Contraseña</label>
-                <input type="password" id="loginPassword" class="form-control" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div id="loginForm" class="container login mt-5">
+                            <h3>Iniciar sesión</h3>
+                            <form id="login" aria-labelledby="loginFormHeading">
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                                    <input type="email" id="loginEmail" class="form-control" placeholder="Ingresa tu correo" required autocomplete="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Contraseña</label>
+                                    <input type="password" id="loginPassword" class="form-control" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                                <button id="loginGoogleBtn" class="btn btn-danger mt-2" aria-label="Iniciar Sesión con Google">Iniciar Sesión con Google</button>
+                                <button id="showRegisterForm" type="button" class="btn btn-link mt-3" aria-label="Registrarse">¿No tienes cuenta? Regístrate aquí</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Formulario de registro -->
+                        <div id="registerForm" class="container mt-5 d-none">
+                            <h3>Registrarse</h3>
+                            <form id="register" aria-labelledby="registerFormHeading">
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                                    <input type="email" id="registerEmail" class="form-control" placeholder="Ingresa tu correo" required autocomplete="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Contraseña</label>
+                                    <input type="password" id="registerPassword" class="form-control" placeholder="Ingresa tu contraseña" required autocomplete="new-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                <button id="backToLogin" type="button" class="btn btn-secondary mt-2" aria-label="Volver al inicio de sesión">Volver</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
-            <button id="loginGoogleBtn" class="btn btn-danger mt-2" aria-label="Iniciar Sesión con Google">Iniciar Sesión con Google</button>
-            <button id="showRegisterForm" type="button" class="btn btn-link mt-3" aria-label="Registrarse">¿No tienes cuenta? Regístrate aquí</button>
-        </form>
+        </div>
     </div>
     
-    <!-- Formulario de registro -->
-    <div id="registerForm" class="container mt-5 d-none">
-        <h3>Registrarse</h3>
-        <form id="register" aria-labelledby="registerFormHeading">
-            <div class="mb-3">
-                <label for="registerEmail" class="form-label">Correo Electrónico</label>
-                <input type="email" id="registerEmail" class="form-control" placeholder="Ingresa tu correo" required autocomplete="email">
-            </div>
-            <div class="mb-3">
-                <label for="registerPassword" class="form-label">Contraseña</label>
-                <input type="password" id="registerPassword" class="form-control" placeholder="Ingresa tu contraseña" required autocomplete="new-password">
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-            <button id="backToLogin" type="button" class="btn btn-secondary mt-2" aria-label="Volver al inicio de sesión">Volver</button>
-        </form>
-    </div>
 
     <script type="module" src="assets/js/script.js"></script>
 </body>

@@ -2,21 +2,17 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/fireba
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, getDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL,  uploadBytes } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+import { updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
-    
-  
-    apiKey: "AIzaSyAK2XwjNw553jLxXtipNNVnI53A64fnDHM",
-    authDomain: "proyecto4-e0675.firebaseapp.com",
-    projectId: "proyecto4-e0675",
-    storageBucket: "proyecto4-e0675.appspot.com",
-    messagingSenderId: "512574537773",
-    appId: "1:512574537773:web:4503d5bb365fc881e6f8a4",
-    measurementId: "G-3EMBHPK9DL"
-  
-
-  
+    apiKey: "AIzaSyCX405bvseZBDXhmbCIBueSrJFd1ildPpk",
+    authDomain: "proyecto4-final.firebaseapp.com",
+    projectId: "proyecto4-final",
+    storageBucket: "proyecto4-final.appspot.com",
+    messagingSenderId: "153455877998",
+    appId: "1:153455877998:web:cbea6718f862488addab7f",
+    measurementId: "G-MS1HM6928D"
 };
 
 // Initialize Firebase
@@ -174,5 +170,8 @@ export function deletePost(id) {
     return deleteDoc(doc(db, 'posts', id));
 }
 
+
+
 // Exportar autenticación y base de datos
 export { auth};
+

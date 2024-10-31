@@ -39,6 +39,8 @@ postForm.addEventListener('submit', function(e) {
 // Función para mostrar las publicaciones
 function displayPosts(posts) {
     postsContainer.innerHTML = ''; // Limpiar el contenedor
+    const userId = auth.currentUser ? auth.currentUser.uid : null; // Obtener el ID del usuario autenticado
+
     posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.classList.add('col-12'); // Configuración de columnas responsive
@@ -62,12 +64,19 @@ function displayPosts(posts) {
                         </button>
                     </div>
                     <div class="">
-                        <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${post.id}">
-                            <i class="bi bi-pencil-square"></i> Editar
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${post.id}">
-                            <i class="bi bi-trash"></i> Borrar
-                        </button>
+                        ${
+                            // Condicional para mostrar los botones de editar y borrar solo si el usuario es el autor
+                            userId === post.authorId
+                            ? `
+                                <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${post.id}">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${post.id}">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </button>
+                              `
+                            : ''
+                        }
                     </div>
                     <small>${post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleString() : 'Fecha no disponible'}</small>
                 </div>
@@ -75,6 +84,7 @@ function displayPosts(posts) {
         `;
         postsContainer.appendChild(postElement);
     });
+
 
     // Función para editar publicaciones
     const editButtons = document.querySelectorAll('.edit-btn');

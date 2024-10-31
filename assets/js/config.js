@@ -108,9 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
-
-
 //--------------POSTS-----------------------//
 
 export function createPost(text, imageFile) {

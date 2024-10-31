@@ -1,0 +1,13 @@
+body{
+    background-color: #FFD5E2;
+}
+.btn{
+    background-color: #F63C65; /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    border-radius: 30px; /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+.btn:hover {
+    background-color: #D5006D; /* Color al pasar el mouse */
+    transform: translateY(-2px); /* Leve elevación al pasar el mouse */
+}

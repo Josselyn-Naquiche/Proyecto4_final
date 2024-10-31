@@ -25,7 +25,7 @@
                 <!-- Nav -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="nosotros.html" id="tasks">Sobre Nosotros <span class="visually-hidden">(current)</span></a>
+                        <!-- <a class="nav-link text-white" href="nosotros.html" id="tasks">Sobre Nosotros <span class="visually-hidden">(current)</span></a> -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="posts.html" id="posts">Publicaciones</a>
@@ -48,10 +48,25 @@
             <p class="display-6">Bienvenido a Petspace</p>
             <h2 id="userName"></h2>
             <img id="userAvatar" src="" alt="Avatar" class="rounded-circle mb-3" width="100" height="100">
-            <p id="descripción">Este es un espacio donde podrás compartir sobre tus mascotas, con tu ayuda podemos promover un mejor cuidado de nuestros engreidos en casa</p>
+            <p id="descri"></p>
+            <button id="editProfileBtn" class="btn btn-primary mt-10" style="margin: 10px;">Editar perfil</button>
           </div>
-      
-
+    
+           <!-- Formulario de edición de perfil (oculto al principio) -->
+                <div id="profileForm" style="display: none;">
+                    <form id="updateProfileForm" class="mt-3">
+        <div class="form-group">
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" class="form-control" placeholder="Ingresa tu nuevo nombre de usuario" required>
+        </div>
+        <div class="form-group">
+            <label for="profileImage">Foto de perfil:</label>
+            <input type="file" id="profileImage" class="form-control" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Guardar cambios</button>
+        <button id="cancelEditBtn" class="btn btn-secondary mt-2">Cancelar</button>
+    </form>
+</div>
         </div>
         <div class="col md-6  ">
           
@@ -79,5 +94,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script type="module" src="assets/js/posts.js"></script>
+    
 </body>
 </html>

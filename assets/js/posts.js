@@ -16,6 +16,7 @@ onAuthStateChanged(auth, (user) => {
         // Actualiza el contenedor de bienvenida
         document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
         document.getElementById('userAvatar').src = user.photoURL    || 'https://via.placeholder.com/40'; // Usa un avatar por defecto si no hay foto
+        document.getElementById('descri').texContent = user.email
     } else {
         console.log("Usuario no está autenticado.");
         window.location.href = 'index.html'; // Redirige si no hay usuario
@@ -157,15 +158,20 @@ function displayPosts(posts) {
 // Llamada a la función que escucha las publicaciones en tiempo real
 onGetPosts(displayPosts);
 
-// onAuthStateChanged
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("Usuario está autenticado:", user);
-    } else {
-        console.log("Usuario no está autenticado.");
-        window.location.href = 'index.html'; // Redirige si no hay usuario
-    }
+
+// Mostrar el formulario de edición al hacer clic en "Editar perfil"
+document.getElementById('editProfileBtn').addEventListener('click', () => {
+    document.getElementById('profileForm').style.display = 'block';
+    document.getElementById('editProfileBtn').style.display = 'none';
 });
+
+// Cancelar la edición y ocultar el formulario
+document.getElementById('cancelEditBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('profileForm').style.display = 'none';
+    document.getElementById('editProfileBtn').style.display = 'block';
+});
+
 
 // Cerrar sesión
 btnLogout.addEventListener('click', () => {

@@ -27,6 +27,7 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 const provider = new GoogleAuthProvider(); // Proveedor de Google
 
+
 //--------------AUTH-----------------------//
 
 // Función para registrar un nuevo usuario
@@ -70,6 +71,46 @@ export function loginWithGoogle() {
 }
 
 
+
+document.addEventListener("DOMContentLoaded", () => {
+    const updateProfileForm = document.getElementById('updateProfileForm');
+    if (updateProfileForm) {
+        updateProfileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) {
+                console.error("No hay un usuario autenticado");
+                return;
+            }
+            
+            const newUsername = document.getElementById('username').value;
+            const profileImageFile = document.getElementById('profileImage').files[0];
+            
+            try {
+                let photoURL = user.photoURL;
+
+                if (profileImageFile) {
+                    const imageRef = ref(storage, `profilePictures/${user.uid}`);
+                    await uploadBytes(imageRef, profileImageFile);
+                    photoURL = await getDownloadURL(imageRef);
+                }
+
+                await updateProfile(user, { displayName: newUsername, photoURL });
+                document.getElementById('userName').textContent = newUsername;
+                document.getElementById('userAvatar').src = photoURL;
+
+                alert('Perfil actualizado exitosamente');
+            } catch (error) {
+                console.error("Error al actualizar el perfil:", error);
+                alert('Hubo un error al actualizar el perfil');
+            }
+        });
+    }
+});
+
+
+
+
 //--------------POSTS-----------------------//
 
 export function createPost(text, imageFile) {
@@ -96,6 +137,7 @@ function savePost(text, imageUrl) {
         authorName: user.displayName || user.email.split('@')[0],  // Usa el displayName o el email como nombre
         authorPhoto: user.photoURL || 'https://via.placeholder.com/40',  // Foto de perfil
         text: text,
+        firstDescription: user.email,
         imageUrl: imageUrl,
         likes: 0,
         dislikes: 0,
@@ -162,36 +204,20 @@ export async function fetchPosts() {
     return posts;
 }
 
-// Función para obtener una publicación específica
+// obtener una publicación específica
 export function getPost(id) {
     return getDoc(doc(db, 'posts', id));
 }
-// Función para actualizar una publicación
+// actualizar una publicación
 export function updatePost(id, newFields) {
     return updateDoc(doc(db, 'posts', id), newFields);
 }
-// Función para borrar una publicación
+// borrar una publicación
 export function deletePost(id) {
     return deleteDoc(doc(db, 'posts', id));
 }
 
-// Función para agregar un comentario
-export const addComment = async (postId, text) => {
-    const userId = getCurrentUserId();
-    const commentRef = db.collection('posts').doc(postId).collection('comments').doc();
-    await commentRef.set({
-        text,
-        userId,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-};
 
-// Función para obtener comentarios de un post
-export const getComments = async (postId) => {
-    const commentsSnapshot = await db.collection('posts').doc(postId).collection('comments').orderBy('createdAt').get();
-    const comments = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return comments;
-};
 
 // Exportar autenticación y base de datos
 export { auth};

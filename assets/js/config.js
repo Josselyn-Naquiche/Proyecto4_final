@@ -195,6 +195,32 @@ export const updatePostLikes = async (postId, userId, action) => {
     }
 };
 
+export function addComment(postId, comment) {
+    const user = auth.currentUser;
+    if (!user) {
+        throw new Error("No hay usuario autenticado");
+    }
+    const commentData = {
+        authorId: user.uid,
+        authorName: user.displayName || user.email.split('@')[0],
+        authorPhoto: user.photoURL || 'https://via.placeholder.com/40',
+        text: comment,
+        createdAt: new Date()
+    };
+    return addDoc(collection(db, 'posts', postId, 'comments'), commentData);
+}
+
+export function onGetComments(postId, callback) {
+    onSnapshot(collection(db, 'posts', postId, 'comments'), (snapshot) => {
+        const comments = [];
+        snapshot.forEach(doc => {
+            comments.push({ id: doc.id, ...doc.data() });
+        });
+        callback(comments);
+    });
+}
+
+
 export async function fetchPosts() {
     const querySnapshot = await getDocs(collection(db, 'posts'));
     const posts = [];

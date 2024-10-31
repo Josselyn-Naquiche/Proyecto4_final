@@ -1,4 +1,4 @@
-import { auth, createPost, onGetPosts, getCurrentUserId, updatePostLikes, fetchPosts} from "./config.js";
+import { auth, createPost, onGetPosts, getCurrentUserId, updatePostLikes, fetchPosts, addComment, onGetComments } from "./config.js";
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { deletePost, getPost, updatePost } from "./config.js";
 
@@ -74,17 +74,56 @@ function displayPosts(posts) {
                                 <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${post.id}">
                                     <i class="bi bi-trash"></i> Borrar
                                 </button>
-                              `
-                            : ''
-                        }
+                              ` : ''}
                     </div>
                     <small>${post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleString() : 'Fecha no disponible'}</small>
+                </div>
+                <div class="comments-section mt-3">
+                    <h5>Comentarios</h5>
+                    <div class="comments-section mt-3"> 
+                        <div class="mb-2"> 
+                            <input type="text" class="form-control comment-input" placeholder="Escribe un comentario..." data-post-id="${post.id}"> 
+                            <button class="btn btn-primary mt-2 add-comment-btn" data-post-id="${post.id}">Agregar Comentario</button> 
+                        </div>
+                    <div class="comments-container" data-post-id="${post.id}"></div> 
                 </div>
             </div>
         `;
         postsContainer.appendChild(postElement);
-    });
 
+        // Obtener y mostrar comentarios para cada post 
+        onGetComments(post.id, (comments) => { 
+            const commentsContainer = postElement.querySelector(`.comments-container[data-post-id="${post.id}"]`); 
+            commentsContainer.innerHTML = ''; 
+            comments.forEach(comment => { 
+                const commentElement = document.createElement('div'); 
+                commentElement.classList.add('comment'); 
+                commentElement.innerHTML = ` 
+                    <div class="d-flex align-items-center mb-3 ms-3"> 
+                        <img src="${comment.authorPhoto}" alt="Foto de perfil" class="rounded-circle" width="30" height="30"> 
+                        <h6 class="card-subtitle mb-0 ms-2 ">${comment.authorName || 'Usuario Desconocido'}</h6> 
+                        <small class="text-muted ms-2">${comment.createdAt ? new Date(comment.createdAt.seconds * 1000).toLocaleString() : 'Fecha no disponible'}</small> 
+                    </div> 
+                    <p>${comment.text}</p> 
+                `; 
+                commentsContainer.appendChild(commentElement); 
+            }); 
+        }); 
+        
+        // Añadir listener para el botón de agregar comentario 
+        const addCommentBtns = postElement.querySelectorAll('.add-comment-btn'); 
+        addCommentBtns.forEach(button => { 
+            button.addEventListener('click', async (e) => { 
+                const postId = button.getAttribute('data-post-id'); 
+                const commentInput = postElement.querySelector(`.comment-input[data-post-id="${postId}"]`); 
+                const comment = commentInput.value; 
+                if (comment) { 
+                    await addComment(postId, comment); 
+                    commentInput.value = ''; 
+                } 
+            }); 
+        });
+    });
 
     // Función para editar publicaciones
     const editButtons = document.querySelectorAll('.edit-btn');

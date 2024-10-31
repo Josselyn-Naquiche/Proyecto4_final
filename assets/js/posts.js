@@ -43,7 +43,7 @@ function displayPosts(posts) {
 
     posts.forEach(post => {
         const postElement = document.createElement('div');
-        postElement.classList.add('col-12'); // Configuración de columnas responsive
+        postElement.classList.add('col-12');
         postElement.innerHTML = `
             <div class="card  h-100 mb-3 ">
                 <div class="card-body">

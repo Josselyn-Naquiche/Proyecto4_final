@@ -1,6 +1,6 @@
-#PetSpace
+#PetSpace#
 
-##📕 Descripción:
+📕 Descripción:
 ¡Bienvenidos a PetSpace! Esta una red social diseñada para los amantes de las mascotas. Aquí, los usuarios pueden crear perfiles para sus animales, compartir fotos, intercambiar consejos y conectarse con otros dueños de mascotas en su área.
 
 🌺Características:
